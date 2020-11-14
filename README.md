@@ -1,70 +1,144 @@
-# Getting Started with Create React App
+# react-custom-hook-validation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+make the validation simple again
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+npm i react-custom-hook-validation
 
-### `npm start`
+## Usage 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+ ### example config
+ ```js
+ const config = {
+        login: {
+            title: 'login',
+            maxLength: 15,
+            minLength : 3,
+            value: null,
+            type: 'number',
+            required: true,
+            errors: {
+                minLength: 'error message for min length',
+                maxLegnth: 'error message for max length',
+                value: 'error message for value',
+                isNumber: 'should be number'
+            }
+        },
+        password: {
+            title: 'password',
+            maxLength: 10,
+            minLength : 6,
+            value: null,
+            required: true,
+            errors: {
+                minLength: 'error message for min length',
+                maxLegnth: 'error message for max length',
+                value: 'error message for value',
+                isNumber: 'should be number'
+            }
+        },
+        email: {
+            title: 'email',
+            maxLength: 7,
+            minLength : 3,
+            regexp: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            value: null,
+            errors: {
+                minLength: 'error message for min length',
+                maxLegnth: 'error message for max length',
+                value: 'error message for value',
+                isNumber: 'should be number'
+            }
+        }
+    }
+   ```
+### useValidation 
+ ```js
+    const [login, password, email, fieldValues, changeHandler, startValidation] = useValidation(config);
+ ```
+```diff
+- Consistently returns the object of each field from config.
+Last two elements are the functions - 
+    changeHandler - takes one argument - event from inout tag
+    startValidation - takes one argument - callback function, it return changed config
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### input props 
 
-### `npm test`
+```js
+ <input onChange={(event) => changeHandler(event)} placeholder='login' name='login' value={fieldValues.login.value || ''}/>
+```
+```diff
+- necessary to add name prop for correct work;
+!add check value prop because react show warning in the console
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### code example 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```js
+import useValidation from 'react-custom-hook-validation';
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+export default function Route1({ history }) {
+    const config = {
+        login: {
+            title: 'login',
+            maxLength: 15,
+            minLength : 3,
+            value: null,
+            type: 'number',
+            required: true,
+            errors: {
+                minLength: 'not be less then',
+                maxLength: 'not be bigger then',
+                value: 'not be empty',
+                isNumber: 'should be number'
+            }
+        },
+        password: {
+            title: 'password',
+            maxLength: 10,
+            minLength : 6,
+            value: null,
+            required: true,
+            errors: {
+                minLength: 'not be less then',
+                maxLength: 'not be bigger then',
+                value: 'not be empty'
+            }
+        },
+        email: {
+            title: 'email',
+            maxLength: 7,
+            minLength : 3,
+            regexp: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            value: null,
+            errors: {
+                minLength: 'not be less then',
+                maxLength: 'not be bigger then',
+                value: 'not be empty',
+                regexp: 'incorrect validation'
+            }
+        }
+    }
+    const [login, password, email, fieldValues, changeHandler, startValidation] = useValidation(state);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    const sigIn = (config) => {
+        
+        // some code here
+    }
+    
+    return (
+        <>
+            <input onChange={(event) => changeHandler(event)} placeholder={'login'} name='login' value={fieldValues.login.value || ''}/>
+            <label>{login?.errors}</label>
+            <input onChange={(event) => changeHandler(event)} placeholder={'password'} name='password' value={fieldValues.password.value || ''}/>
+            <label>{password?.errors}</label>
+            <input onChange={(event) => changeHandler(event)} placeholder={'email'} name='email' value={fieldValues.email.value || ''}/>
+            <label>{email?.errors}</label>
+            <button onClick={() => startValidation(sigIn)}>login</button>
+        </>
+    )
+}
+```
