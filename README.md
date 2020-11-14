@@ -1,1 +1,144 @@
-# react-hook-validation
+# react-custom-hook-validation
+
+make the validation simple again
+
+## Installation
+
+npm i react-custom-hook-validation
+
+## Usage 
+
+ ### example config
+ ```js
+ const config = {
+        login: {
+            title: 'login',
+            maxLength: 15,
+            minLength : 3,
+            value: null,
+            type: 'number',
+            required: true,
+            errors: {
+                minLength: 'error message for min length',
+                maxLegnth: 'error message for max length',
+                value: 'error message for value',
+                isNumber: 'should be number'
+            }
+        },
+        password: {
+            title: 'password',
+            maxLength: 10,
+            minLength : 6,
+            value: null,
+            required: true,
+            errors: {
+                minLength: 'error message for min length',
+                maxLegnth: 'error message for max length',
+                value: 'error message for value',
+                isNumber: 'should be number'
+            }
+        },
+        email: {
+            title: 'email',
+            maxLength: 7,
+            minLength : 3,
+            regexp: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            value: null,
+            errors: {
+                minLength: 'error message for min length',
+                maxLegnth: 'error message for max length',
+                value: 'error message for value',
+                isNumber: 'should be number'
+            }
+        }
+    }
+   ```
+### useValidation 
+ ```js
+    const [login, password, email, fieldValues, changeHandler, startValidation] = useValidation(config);
+ ```
+```diff
+- Consistently returns the object of each field from config.
+Last two elements are the functions - 
+    changeHandler - takes one argument - event from inout tag
+    startValidation - takes one argument - callback function, it return changed config
+```
+
+### input props 
+
+```js
+ <input onChange={(event) => changeHandler(event)} placeholder='login' name='login' value={fieldValues.login.value || ''}/>
+```
+```diff
+- necessary to add name prop for correct work;
+!add check value prop because react show warning in the console
+```
+
+
+### code example 
+
+```js
+import useValidation from 'react-custom-hook-validation';
+
+export default function Route1({ history }) {
+    const config = {
+        login: {
+            title: 'login',
+            maxLength: 15,
+            minLength : 3,
+            value: null,
+            type: 'number',
+            required: true,
+            errors: {
+                minLength: 'not be less then',
+                maxLength: 'not be bigger then',
+                value: 'not be empty',
+                isNumber: 'should be number'
+            }
+        },
+        password: {
+            title: 'password',
+            maxLength: 10,
+            minLength : 6,
+            value: null,
+            required: true,
+            errors: {
+                minLength: 'not be less then',
+                maxLength: 'not be bigger then',
+                value: 'not be empty'
+            }
+        },
+        email: {
+            title: 'email',
+            maxLength: 7,
+            minLength : 3,
+            regexp: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            value: null,
+            errors: {
+                minLength: 'not be less then',
+                maxLength: 'not be bigger then',
+                value: 'not be empty',
+                regexp: 'incorrect validation'
+            }
+        }
+    }
+    const [login, password, email, fieldValues, changeHandler, startValidation] = useValidation(state);
+
+    const sigIn = (config) => {
+        
+        // some code here
+    }
+    
+    return (
+        <>
+            <input onChange={(event) => changeHandler(event)} placeholder={'login'} name='login' value={fieldValues.login.value || ''}/>
+            <label>{login?.errors}</label>
+            <input onChange={(event) => changeHandler(event)} placeholder={'password'} name='password' value={fieldValues.password.value || ''}/>
+            <label>{password?.errors}</label>
+            <input onChange={(event) => changeHandler(event)} placeholder={'email'} name='email' value={fieldValues.email.value || ''}/>
+            <label>{email?.errors}</label>
+            <button onClick={() => startValidation(sigIn)}>login</button>
+        </>
+    )
+}
+```

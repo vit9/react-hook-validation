@@ -1,0 +1,39 @@
+{
+  "name": "react-custom-hook-validation",
+  "version": "1.0.0",
+  "description": "react hook custom validation",
+  "main": "dist/index.js",
+  "dependencies": {},
+  "scripts": {
+    "prepublishOnly": "babel ./src --out-dir ./dist -s inline"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vit9/react-hook-validation.git"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "validation"
+  ],
+  "author": "vit9",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vit9/react-hook-validation/issues"
+  },
+  "homepage": "https://github.com/vit9/react-hook-validation#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "react-dom": "^17.0.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "moment": "^2.24.0"
+  },
+  "files": [
+    "dist/*"
+  ]
+}
