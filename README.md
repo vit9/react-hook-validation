@@ -1,6 +1,6 @@
 # react-custom-hook-validation
 
-make the validation simple again
+Make the validation simple again
 
 ## Installation
 
@@ -70,17 +70,18 @@ Last two elements are the functions -
  <input onChange={(event) => changeHandler(event)} placeholder='login' name='login' value={fieldValues.login.value || ''}/>
 ```
 ```diff
-- necessary to add name prop for correct work;
-!add check value prop because react show warning in the console
+- Necessary to add name prop for correct work;
+!Add check value prop because react show warning in the console
 ```
 
 
 ### code example 
 
 ```js
+import React from 'react';
 import useValidation from 'react-custom-hook-validation';
 
-export default function Route1({ history }) {
+export default function ValidationExample({ history }) {
     const config = {
         login: {
             title: 'login',
