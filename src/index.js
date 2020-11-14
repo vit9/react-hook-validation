@@ -60,7 +60,7 @@ export default function useValidation(params) {
         }
 
         if(!field?.value && !isFirstRender && field.required) {
-            field = {...field, errors: field.errors.value_e};
+            field = {...field, errors: field.errors.value};
             return field;
         }
         if(field?.regexp && field?.value !== null) {
