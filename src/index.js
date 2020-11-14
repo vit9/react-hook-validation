@@ -19,8 +19,7 @@ export default function useValidation(params) {
     function startValidation(customFunc) {
         const { errorFields, error } = _getFields(value);
         setValidationResponse((pr) => ({...pr, error, validation: errorFields}));
-        customFunc(errorFields);
-        if(!error) return customFunc(errorFields);
+        return customFunc(errorFields, error);
     }
 
     function maxLengthValidation(field) {

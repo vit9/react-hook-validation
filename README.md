@@ -8,7 +8,7 @@ npm i react-custom-hook-validation
 
 ## Usage 
 
- ### example config
+### example config
  ```js
  const config = {
         login: {
@@ -61,7 +61,8 @@ npm i react-custom-hook-validation
 - Consistently returns the object of each field from config.
 Last two elements are the functions - 
     changeHandler - takes one argument - event from inout tag
-    startValidation - takes one argument - callback function, it return changed config
+    startValidation - takes one argument - callback function, it return two params:
+        config and error - if there are errors after validation this params will have value true
 ```
 
 ### input props 
@@ -125,7 +126,7 @@ export default function ValidationExample({ history }) {
     }
     const [login, password, email, fieldValues, changeHandler, startValidation] = useValidation(state);
 
-    const sigIn = (config) => {
+    const sigIn = (config, error) => {
         
         // some code here
     }
