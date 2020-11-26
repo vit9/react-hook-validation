@@ -12,6 +12,7 @@ npm i react-custom-hook-validation
  ```js
  const config = {
         login: {
+            id: 1,
             title: 'login',
             maxLength: 15,
             minLength : 3,
@@ -26,6 +27,7 @@ npm i react-custom-hook-validation
             }
         },
         password: {
+            id: 2,
             title: 'password',
             maxLength: 10,
             minLength : 6,
@@ -39,6 +41,7 @@ npm i react-custom-hook-validation
             }
         },
         email: {
+            id: 3,
             title: 'email',
             maxLength: 7,
             minLength : 3,
@@ -85,6 +88,7 @@ import useValidation from 'react-custom-hook-validation';
 export default function ValidationExample({ history }) {
     const config = {
         login: {
+            id: 1,
             title: 'login',
             maxLength: 15,
             minLength : 3,
@@ -99,6 +103,7 @@ export default function ValidationExample({ history }) {
             }
         },
         password: {
+            id: 2,
             title: 'password',
             maxLength: 10,
             minLength : 6,
@@ -111,6 +116,7 @@ export default function ValidationExample({ history }) {
             }
         },
         email: {
+            id: 3,
             title: 'email',
             maxLength: 7,
             minLength : 3,
